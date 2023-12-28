@@ -1,0 +1,65 @@
+1. Prendre un problème concret que tu as dû résoudre lors d’un développement récent et qui t’a particulièrement marqué 
+(gros blocage, solution particulièrement élégante ou fun, découverte de quelque chose de nouveau…).
+Me décrire le problème en 2 ou 3 lignes et expliquer la solution (ou les étapes de recherche) en 2 ou 3 lignes, 
+comme tu pourrais le faire en réunion de sprint matinale.
+
+Réponse: 
+    Durant la refonte from scratch du site web de l'unedic.org, nous étions confronté à un défi majeur lié à la lenteur
+    et à l'inefficacité du moteur de recherche de l'ancien site. Comme j'ai participait des le début dans reunions des
+    choix technologiques, j'ai proposé et mis en oeuvre Algolia, une solution que j'avais découvert et utilisé dans un projet personnel.
+    Ma suggestion a été approuvée lors des discussions initiales, et pour renforcer cette décision, j'ai pris l'initiative
+    de faire un "poke" pour promouvoir cette idée au sein de l'équipe. 
+    L'intégration a été fluide, offrant une recherche instantanée et des résultats pertinents.
+    Cette solution a été validée par notre architecte technique et a considérablement amélioré l'expérience utilisateur du nouveau site
+
+2. Le site web netanswer.fr est codé en php et est sur un serveur web apache.
+Décrire succinctement chaque étape qui se déroule entre le moment où un visiteur tape netanswer.fr dans la barre de son navigateur
+et le chargement complet de la page.
+
+Réponse: 
+    La séquence du processus de chargement d'une page web sur netanswer.fr peut être décrite en plusieurs étapes clés :
+        1. Lorsque quelqu'un tape "netanswer.fr", le navigateur envoie une requête aux serveurs DNS pour obtenir
+        l'adresse IP correspondante.
+
+        2. Le navigateur établit une connexion TCP avec le serveur web Apache à l'adresse IP obtenue,
+        sur le port approprié.
+
+        3. Une fois la connexion établie, le navigateur envoie une requête HTTP au serveur Apache, demandant les fichiers
+        nécessaires pour afficher la page.
+
+        4. Si la page utilise PHP, le serveur Apache interprète et exécute les scripts PHP pour générer une page HTML dynamique.
+        Ces scripts peuvent effectuer des opérations dynamiques, accéder à des bases de données.
+
+        5. Le serveur renvoie la réponse au navigateur, contenant le code HTML, les feuilles de style, les scripts,
+        et d'autres ressources nécessaires.
+
+        5. Le navigateur commence à recevoir et à interpréter la réponse, chargeant et rendant le contenu au fur et à mesure.
+
+        6. Une fois que toutes les ressources ont été reçues et que le rendu est complet, le visiteur voit la page complète
+        de "netanswer.fr" dans son navigateur.
+
+3.Regarde le code source d’un site créé par netanswer, comme par exemple https://www.centraliens-lyon.net
+Si tu étais recruté et que tu avais carte blanche, quels changements proposerais-tu ?
+
+Réponse:
+    C'est la question où je me suis dis c'est un peu flou, je cherche à comment améliorer les performances
+    et implementer une soltion de cache (redis par exemple), je cherche à une expérience utilisateur et est-ce que je suissatisfait
+    sur les interfaces...
+
+    Mais ce que je propose d'abord c'est d'appuer plus sur 
+        * Le site pèche du côté de l'accessibilité, ne respectant pas pleinement les normes requises pour offrir une expérience inclusive
+        à tous les utilisateurs, y compris ceux ayant des besoins spécifiques.
+
+        * En plongeant dans le code, j'ai constaté que le CSS et le JavaScript sont exposés en clair. Pour améliorer la sécurité et optimiser
+        les performances du site, il serait judicieux de les compresser dans un seul fichier, une pratique courante après la phase
+        de construction, souvent réalisée avec des outils tels que Webpack. Cela réduirait la charge du serveur en ne nécessitant qu'un seul
+        fichier .css et .js, ce qui, en fin de compte, améliorerait les performances. De plus, en obscurcissant le code JavaScript,
+        on minimise les risques d'exploitation malveillante par des personnes examinant le code.
+
+        * Il y a également du code JavaScript injecté directement dans le HTML, ce qui va à l'encontre des bonnes pratiques. Une approche
+        plus propre serait d'externaliser ce code dans un fichier distinct. De même, la présence de code CSS intégré pourrait être améliorée
+        en définissant des classes CSS dans un fichier distinct et en les appliquant de manière sélective aux éléments HTML concernés. 
+        Cela améliorerait la lisibilité et la maintenabilité globale du code.
+
+        * Le code charge jQuery à plusieurs reprises. Cela peut entraîner des conflits et des problèmes de performances. 
+        Il est préférable de charger jQuery une seule fois et de s'assurer que toutes les dépendances en dépendent.
